@@ -93,7 +93,7 @@ def build_classifier():
       classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'sigmoid'))
       classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
       return classifier
-classifier = KerasClassifier(build_fn = build_classifier, batch_size = 10, nb_epoch = 100)
+classifier = KerasClassifier(build_fn = build_classifier, batch_size = 10, epochs = 100)
 accuracies = cross_val_score(estimator = classifier, X = X_train, y = y_train, cv = 10)
 mean = accuracies.mean()
 variance = accuracies.std()
@@ -113,7 +113,7 @@ def build_classifier(optimizer):
       return classifier
 classifier = KerasClassifier(build_fn = build_classifier)
 parameters = {'batch_size' : [25, 32],
-              'nb_epoch' : [100, 500],
+              'epochs' : [100, 500],
               'optimizer' : ['adam', 'rmsprop']}
 grid_search = GridSearchCV(estimator = classifier,
                            param_grid = parameters,
